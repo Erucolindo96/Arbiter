@@ -12,13 +12,19 @@ TARGET = Arbiter
 TEMPLATE = lib
 CONFIG += staticlib
 
-SOURCES += arbiter.cpp \
-    instruction.cpp \
-    operand.cpp
+SOURCES += \
+    Arbiter.cpp \
+    Instruction.cpp \
+    RealInstruction.cpp \
+    Operand.cpp \
+    Processor.cpp
 
-HEADERS += arbiter.hpp \
-    instruction.hpp \
-    operand.hpp
+HEADERS += \
+    RealInstructions.hpp \
+    Operand.hpp \
+    Instruction.hpp \
+    Arbiter.hpp \
+    Processor.hpp
 unix {
     target.path = /usr/lib
     INSTALLS += target

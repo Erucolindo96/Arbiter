@@ -1,4 +1,4 @@
-#include "arbiter.hpp"
+#include "Arbiter.hpp"
 
 
 Arbiter::Arbiter()

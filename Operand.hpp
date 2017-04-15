@@ -4,29 +4,6 @@
 
 namespace arbiter
 {
-/**
-  @class Operand
-
-  Class Operand represent an Operand of istruction Red Code Assembler
-
-
-  */
-
-
-typedef enum Opcode
-{
-DAT,
-MOV,
-ADD,
-SUB,
-JMP,
-JMZ,
-JMN,
-DJN,
-CMP,
-SPL,
-SLT
-} Opcode;
 
 
 /**
@@ -43,7 +20,8 @@ typedef enum AdressingType
         DIRECT,
         INDIRECT,
         INDIRECT_DECREMENT,
-        INDIRECT_INCREMENT
+        INDIRECT_INCREMENT,
+        NULL
 }AdressingType;
 
 
@@ -66,10 +44,11 @@ public:
 
 protected:
 
-    AdressingType _op_type;
-    int _value;
+    AdressingType op_type_;
+    int value_;
     Operand();
 
 };
+
 }
 #endif // OPERAND_HPP
