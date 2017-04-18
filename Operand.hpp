@@ -13,7 +13,7 @@ namespace arbiter
  *
  *
  */
-
+/*
 typedef enum AdressingType
 {
         IMMIDIATE,
@@ -24,29 +24,35 @@ typedef enum AdressingType
         NULL
 }AdressingType;
 
+*/
 
 
+/**
+ * Klasa reprezentująca argumenty i typ adresowania instrukcji. Jest to klasa abstrakcyjna, z której będą dziedziczyły rzeczywiste tryby adresowania.
+ * Wykonanie instrukcji countArgument powoduje obliczenie argumentu i zwrócenie go w postaci IntegerRegister(operacje wykonywane modulo rozmiar rdzenia).
+ * Aby klasa mogła obliczać argumenty potrzebuje dostępu do rdzenia. Posiada więc shared_ptr do niego.
+ *
+ * @brief The Operand class
+ */
 class Operand
 {
 public:
+    typedef shared_ptr<Core> CorePtr;
 
-
-    Operand(AdressingType op_type, int value);
+    Operand(int value = 0);
     Operand(const Operand& other);
     Operand& operator=(const Operand& other);
 
     int getValue();
     void setValue(int value);
-    AdressingType getOperantType();
-    void setAdressingType(AdressingType op_type);
 
+    IntegerRegister countArgument() = 0;
 
 
 protected:
-
-    AdressingType op_type_;
+    CorePtr core_;
     int value_;
-    Operand();
+
 
 };
 

@@ -17,14 +17,20 @@ SOURCES += \
     Instruction.cpp \
     RealInstruction.cpp \
     Operand.cpp \
-    Processor.cpp
+    Processor.cpp \
+    Queuemanager.cpp \
+    process.cpp \
+    interegregister.cpp
 
 HEADERS += \
     RealInstructions.hpp \
     Operand.hpp \
     Instruction.hpp \
     Arbiter.hpp \
-    Processor.hpp
+    Processor.hpp \
+    Queuemanager.hpp \
+    process.hpp \
+    interegregister.hpp
 unix {
     target.path = /usr/lib
     INSTALLS += target
