@@ -3,6 +3,9 @@
 
 
 #include"Operand.hpp"
+#include <stdexcept>
+#include <memory>
+#include "IntegerRegister.hpp"
 
 namespace arbiter
 {
@@ -50,33 +53,39 @@ SLT
 class Instruction
 {
 public:
-    typedef shared_ptr<Core> CorePtr;
+    typedef std::shared_ptr<Core> CorePtr;
+    typedef std::unique_ptr<Operand> OperandPtr;
 
     explicit Instruction();
     explicit Instruction(const Instruction& other);
-    explicit Instruction(const Operand& operand_A, const Operand& operand_B, CorePtr core);
-    Instruction& operator=(const Instruction& other) ;
+  //  Instruction(const Instruction &&other);
 
-    Operand operandA() const;
-    Operand operandB() const;
-    void setOperandA(const Operand& operand);
-    void setOperandB(const Operand& operand);
+    explicit Instruction(const OperandPtr& operand_A, const OperandPtr& operand_B, CorePtr core);
+
+    Instruction& operator=(const Instruction& other);
+ //   Instruction& operator =(const Instruction &&other);
+
+    OperandPtr operandA() const;
+    OperandPtr operandB() const;
+
+    void setOperandA(const OperandPtr& operand);
+    void setOperandB(const OperandPtr& operand);
 
     /**
      * @brief execute Wykonuje instrukcję, tzn oblicza argumenty, modyfikuje rdzeń, i zwraca do wołającego informację o wykonaniu
      * @return Informacja o wykonaniu instrukcji.
      */
     virtual ExecutionLog execute() = 0;
+    virtual std::unique_ptr<Instruction> clone()const = 0;
 
-
-    virtual ~Instruction();//chyba nie bedzie trzeba dziedziczyć po tym - w dodatku chyba niepotrzebny
+    virtual ~Instruction();
 
 protected:
 
     //const unsigned int CORE_SIZE_;
     CorePtr core_;
-    Operand operand_A_;
-    Operand operand_B_;
+    OperandPtr operand_A_;
+    OperandPtr operand_B_;
 
 
 

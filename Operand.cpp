@@ -2,47 +2,69 @@
 namespace arbiter
 {
 
-//public
+    typedef std::shared_ptr<Core> CorePtr;
 
-Operand::Operand(const Operand &other) : op_type_(other.op_type_), value_(other.value_)
-{}
+    //public
+    Operand::Operand(CorePtr core, int value ): core_(core), value_(value)
+    {}
 
+    Operand::Operand(const Operand& other): core_(other.core_), value_(other.value_)
+    {}
 
-Operand::Operand(AdressingType op_type, int value) : op_type_(op_type), value_(value)
-{}
+    Operand::Operand(const Operand &&other): core_(other.core_), value_(other.value_)
+    {}
 
-Operand& Operand::operator=(const Operand& other)
-{
-    if(this == &other)
+    Operand& Operand::operator=(const Operand& other)
+    {
+        if(this == &other)
+            return *this;
+
+        //chechCorePtr(other);
+        core_ = other.core_;
+        value_ = other.value_;
         return *this;
-    value_ = other.value_;
-    op_type_ = other.op_type_;
-    return *this;
-}
+    }
 
-int Operand::getValue()
-{
-    return value_;
-}
-void Operand::setValue(int value)
-{
-    value_ = value;
-}
+    Operand& Operand::operator=(const Operand &&other)
+    {
+        if(this == &other)
+            return *this;
 
-AdressingType Operand::getOperantType()
-{
-    return op_type_;
-}
-void Operand::setAdressingType(AdressingType op_type)
-{
-    op_type_ = op_type;
-}
+        //chechCorePtr(other);
+        core_ = other.core_;
+        value_ = other.value_;
+        return *this;
+    }
+
+    int Operand::getValue()const
+    {
+        return value_;
+    }
+
+    void Operand::setValue(int value)
+    {
+        value_ = value;
+    }
 
 
-//private
+    CorePtr Operand::getCorePtr()const
+    {
+        return core_;
+    }
 
-Operand::Operand() : op_type_(), value_(0)
-{}
+    void Operand::setCorePtr(const CorePtr ptr)
+    {
+        core_ = ptr;
+    }
 
+
+
+    //protected
+
+    void Operand::chechCorePtr(const Operand &other)const
+    {
+        if(other.core_ != core_)
+            throw std::invalid_argument("Arbiter::Operand::chechCorePtr - Core pointers not equal\n");
+    }
 
 }

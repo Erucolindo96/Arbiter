@@ -11,26 +11,29 @@ QT       -= gui
 TARGET = Arbiter
 TEMPLATE = lib
 CONFIG += staticlib
+QMAKE_CXXFLAGS += -std=c++11 #dodane przeze mnie
 
 SOURCES += \
     Arbiter.cpp \
     Instruction.cpp \
-    RealInstruction.cpp \
     Operand.cpp \
     Processor.cpp \
     Queuemanager.cpp \
-    process.cpp \
-    interegregister.cpp
+    Process.cpp \
+    Core.cpp \
+    IntegerRegister.cpp
 
 HEADERS += \
-    RealInstructions.hpp \
     Operand.hpp \
     Instruction.hpp \
     Arbiter.hpp \
     Processor.hpp \
     Queuemanager.hpp \
-    process.hpp \
-    interegregister.hpp
+    Process.hpp \
+    Core.hpp \
+    IntegerRegister.hpp \
+    Realoperands.hpp \
+    Realinstructions.hpp
 unix {
     target.path = /usr/lib
     INSTALLS += target

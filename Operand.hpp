@@ -1,18 +1,17 @@
 #ifndef OPERAND_HPP
 #define OPERAND_HPP
 
+#include<stdexcept>
+#include"IntegerRegister.hpp"
+#include"Core.hpp"
+#include<memory>
+
 
 namespace arbiter
 {
 
 
-/**
- * @brief The AdressingType enum
- * Represent type of adressing
- *
- *
- *
- */
+
 /*
 typedef enum AdressingType
 {
@@ -37,22 +36,35 @@ typedef enum AdressingType
 class Operand
 {
 public:
-    typedef shared_ptr<Core> CorePtr;
+    typedef std::shared_ptr<Core> CorePtr;
+    typedef std::unique_ptr<Operand> OperandPtr;
 
-    Operand(int value = 0);
+    Operand(CorePtr core = nullptr, int value = 0);
     Operand(const Operand& other);
+    Operand(const Operand &&other);
+
     Operand& operator=(const Operand& other);
+    Operand& operator=(const Operand &&other);
 
-    int getValue();
-    void setValue(int value);
+    int getValue()const;
+    void setValue(const int value);
 
-    IntegerRegister countArgument() = 0;
+    CorePtr getCorePtr()const;
+    void setCorePtr(const CorePtr ptr);
+
+    virtual IntegerRegister countArgument() = 0;
+    virtual OperandPtr clone()const = 0;
 
 
 protected:
     CorePtr core_;
     int value_;
-
+    /**
+     * @brief chechCorePtr Sprawdza czy wskaznik na rdzeń jest taki sam jak w Opetandzie other
+     * @param other Porownywany Operand
+     * @throw std::inva
+     */
+    void chechCorePtr(const Operand& other)const;
 
 };
 
