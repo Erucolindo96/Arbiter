@@ -2,7 +2,7 @@
 #define ARBITER_HPP
 
 #include<memory>
-
+#include"CoreCreator.hpp"
 namespace arbiter
 {
 
@@ -26,19 +26,31 @@ namespace arbiter
 */
 class Arbiter
 {
-typedef shared_ptr<Core> CorePtr;
-typedef shared_ptr<Warrior> WarriorPtr;
-typedef shared_ptr<Parameters> ParametersPtr;
+
+typedef std::shared_ptr<Core> CorePtr;
+typedef std::shared_ptr<Warrior> WarriorPtr;
+typedef std::shared_ptr<Parameters> ParametersPtr;
+
+typedef std::unique_ptr<CoreCreator> CoreCreatorPtr;
 
 public:
     Arbiter();
 
+    /**
+     * @brief getCore Zwraca wskazanie do rdzenia.
+     * @return shared_ptr do rdzenia. Jeśli nie utworzono rdzenia zwraca nullptr
+     */
     CorePtr getCore();
 
-    void createCore(const unsigned int CORE_HEIGHT, const unsigned int CORE_WIDTH);
+    /**
+     * @brief createCore Tworzy rdzeń o podanych parametrach
+     * @param core_creator Klasa tworząca rdzeń.
+     */
+    void createCore(const CoreCreatorPtr core_creator );
+
     /**
      * @brief getCoreSize Zwraca ilość komórek rdzenia
-     * @return Całtowity rozmiar rdzenia(HEIGHT*WIDTH)
+     * @return Całtowity rozmiar rdzenia
      */
     unsigned int getCoreSize() const;
 

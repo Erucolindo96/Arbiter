@@ -9,13 +9,13 @@ namespace arbiter
 //public
 
 
-    Instruction::Instruction(): core_(), operand_A_(), operand_B_()
+    Instruction::Instruction():operand_A_(), operand_B_()
     {}
 
-    Instruction::Instruction(const Instruction &other):core_(other.core_), operand_A_(other.operand_A_->clone()), operand_B_(other.operand_B_->clone())
+    Instruction::Instruction(const Instruction &other): operand_A_(other.operand_A_->clone()), operand_B_(other.operand_B_->clone())
     {}
 
-   // Instruction::Instruction(const Instruction &&other): core_(std::move(other.core_)), operand_A_(std::move(other.operand_A_)), operand_B_(std::move(other.operand_B_))
+   // Instruction::Instruction(const Instruction &&other): operand_A_(std::move(other.operand_A_)), operand_B_(std::move(other.operand_B_))
    // {}
 
     OperandPtr Instruction::operandA() const

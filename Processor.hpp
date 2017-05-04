@@ -2,18 +2,26 @@
 #define PROCESSOR_HPP
 
 
+#include"Process.hpp"
+#include"ExecutionLog.hpp"
+#include"Instruction.hpp"
+#include"IntegerRegister.hpp"
+#include <memory>
 namespace arbiter
 {
 
     class Processor
     {
-        typedef shared_ptr<Core> CorePtr;
-        typedef shared_ptr<Instruction> InsPtr;
+        typedef std::shared_ptr<Core> CorePtr;
+        typedef std::shared_ptr<Instruction> InsPtr;
     public:
-        Processor();
+        //Processor(const int CORE_SIZE);
+        Processor(CorePtr core);
 
-        void setCore(CorePtr core_ptr);
-        CorePtr getCore();
+        //void setCorePtr(CorePtr core_ptr);
+        CorePtr getCorePtr()const;
+
+
         /**
          * @brief executeProcess Wykonuje instrukcję podanego procesu, i zwraca wyniki wykonania instrukcji
          * @param proc Proces do wykonania
@@ -27,22 +35,14 @@ namespace arbiter
          * @brief loadInstruction Ładuje instrukcję procesu actual_proc_ do procesora
          */
         void loadInstruction();
-        //bool isIlligal(); //czy pobrana do wykonania instrukcja była nielegalna
-        //void execution(); //wykonuje pobraną instrukcję - modyfikuje rdzeń
-
+        Processor() = delete;//nie znamy rozmiaru rdzenia, wiec nie mozemy zainicjowac proc_pc procesu actual_proc
 
         CorePtr core_ptr_;
 
         InsPtr loaded_instruction_;
         ExecutionLog exec_log_;
         Process actual_proc_;
-        /*
-        ArgumentRegister arg_reg_A_, arg_reg_B_;
-        PointerRegister ptr_reg_A_, ptr_reg_B_;
-        AddressRegister adr_reg_A_, adr_reg_B_;
-        ValueRegister val_reg_A_, val_reg_B_;
-        ProgramCounter pc_;
-*/
+
 };
 
 

@@ -6,7 +6,8 @@
 #include <stdexcept>
 #include <memory>
 #include "IntegerRegister.hpp"
-
+#include"Core.hpp"
+#include"ExecutionLog.hpp"
 namespace arbiter
 {
 
@@ -53,17 +54,13 @@ SLT
 class Instruction
 {
 public:
+    class Core;
     typedef std::shared_ptr<Core> CorePtr;
+
     typedef std::unique_ptr<Operand> OperandPtr;
 
-    explicit Instruction();
-    explicit Instruction(const Instruction& other);
-  //  Instruction(const Instruction &&other);
-
-    explicit Instruction(const OperandPtr& operand_A, const OperandPtr& operand_B, CorePtr core);
-
-    Instruction& operator=(const Instruction& other);
- //   Instruction& operator =(const Instruction &&other);
+    typedef std::unique_ptr<Instruction> InsPtr;
+    typedef std::shared_ptr<Instruction> InsSharedPtr;
 
     OperandPtr operandA() const;
     OperandPtr operandB() const;
@@ -75,17 +72,25 @@ public:
      * @brief execute Wykonuje instrukcję, tzn oblicza argumenty, modyfikuje rdzeń, i zwraca do wołającego informację o wykonaniu
      * @return Informacja o wykonaniu instrukcji.
      */
-    virtual ExecutionLog execute() = 0;
-    virtual std::unique_ptr<Instruction> clone()const = 0;
+    virtual ExecutionLog execute(CorePtr core) = 0;
+    virtual InsPtr clone()const = 0;
 
     virtual ~Instruction();
 
 protected:
 
-    //const unsigned int CORE_SIZE_;
-    CorePtr core_;
     OperandPtr operand_A_;
     OperandPtr operand_B_;
+
+
+    Instruction();
+    Instruction(const Instruction& other);
+  //  Instruction(const Instruction &&other);
+
+    Instruction(const OperandPtr& operand_A, const OperandPtr& operand_B);
+
+    virtual Instruction& operator=(const Instruction& other);
+ //   Instruction& operator =(const Instruction &&other);
 
 
 

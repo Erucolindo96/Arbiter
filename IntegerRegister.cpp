@@ -12,6 +12,7 @@ namespace arbiter
  IntegerRegister::IntegerRegister( const unsigned int CORE_SIZE, const int value ): CORE_SIZE_(CORE_SIZE), value_(value)
 {}
 
+
 IntegerRegister& IntegerRegister::operator=(const IntegerRegister &other)
 {
     checkArgument(other);
@@ -21,6 +22,21 @@ IntegerRegister& IntegerRegister::operator=(const IntegerRegister &other)
 
     value_ = other.value_;
     return *this;
+}
+
+int IntegerRegister::getValue()const
+{
+    return value_;
+}
+
+void IntegerRegister::setValue(const int value)
+{
+    value_ = value;
+}
+
+unsigned int IntegerRegister::getSize()const
+{
+    return CORE_SIZE_;
 }
 
 IntegerRegister IntegerRegister::operator+(const IntegerRegister &added)

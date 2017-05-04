@@ -14,7 +14,13 @@ public:
     IntegerRegister(const IntegerRegister &other);
     explicit IntegerRegister( const unsigned int CORE_SIZE, const int value = 0);
 
+
     IntegerRegister& operator=(const IntegerRegister &other);
+
+    int getValue()const;
+    void setValue(const int value);
+
+    unsigned int getSize()const;
 
     IntegerRegister operator+(const IntegerRegister &added);
     IntegerRegister operator-(const IntegerRegister &added);

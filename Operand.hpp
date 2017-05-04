@@ -36,36 +36,27 @@ typedef enum AdressingType
 class Operand
 {
 public:
+    class Core;
     typedef std::shared_ptr<Core> CorePtr;
     typedef std::unique_ptr<Operand> OperandPtr;
 
-    Operand(CorePtr core = nullptr, int value = 0);
+    explicit Operand(const IntegerRegister value);
     Operand(const Operand& other);
     Operand(const Operand &&other);
 
     Operand& operator=(const Operand& other);
     Operand& operator=(const Operand &&other);
 
-    int getValue()const;
-    void setValue(const int value);
+    IntegerRegister getValue()const;
+    void setValue(const IntegerRegister value);
 
-    CorePtr getCorePtr()const;
-    void setCorePtr(const CorePtr ptr);
-
-    virtual IntegerRegister countArgument() = 0;
+    virtual IntegerRegister countArgument(CorePtr core) = 0;
     virtual OperandPtr clone()const = 0;
 
 
 protected:
-    CorePtr core_;
-    int value_;
-    /**
-     * @brief chechCorePtr Sprawdza czy wskaznik na rdzeń jest taki sam jak w Opetandzie other
-     * @param other Porownywany Operand
-     * @throw std::inva
-     */
-    void chechCorePtr(const Operand& other)const;
-
+    IntegerRegister value_;
+    Operand() = delete;//nalezy zainicjowac wielkosc rdzenia w IntegerRegister value_
 };
 
 }

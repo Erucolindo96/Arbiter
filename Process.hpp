@@ -1,6 +1,8 @@
 #ifndef PROCESS_HPP
 #define PROCESS_HPP
 
+#include"IntegerRegister.hpp"
+
 namespace arbiter
 {
 /**
@@ -12,15 +14,20 @@ namespace arbiter
     class Process
     {
     public:
-        Process();
+        explicit Process(const unsigned int CORE_SIZE);
+        explicit Process(const IntegerRegister &proc_pc);
+        Process(const Process &other);
 
-        IntegerRegister getProcPc();
-        void updateProcPC(IntegerRegister next_pc);
-        void incrementPC();
+        Process& operator =(const Process &other);
+
+        IntegerRegister getProcPc()const;
+        IntegerRegister updateProcPC(IntegerRegister next_pc);
+        IntegerRegister incrementPC();
 
 
     protected:
-        InteregRegister proc_PC_;
+        IntegerRegister proc_PC_;
+        Process() = delete;//poniewaz nie znamy rozmiaru rdzenia to nie mozemy ustawic domyslnej wartosci proc_PC_
 
     };
 }

@@ -21,7 +21,12 @@ SOURCES += \
     Queuemanager.cpp \
     Process.cpp \
     Core.cpp \
-    IntegerRegister.cpp
+    IntegerRegister.cpp \
+    RealInstruction.cpp \
+    RealOperands.cpp \
+    ExecutionLog.cpp \
+    main.cpp \
+    CoreCreator.cpp
 
 HEADERS += \
     Operand.hpp \
@@ -32,8 +37,10 @@ HEADERS += \
     Process.hpp \
     Core.hpp \
     IntegerRegister.hpp \
-    Realoperands.hpp \
-    Realinstructions.hpp
+    ExecutionLog.hpp \
+    RealInstructions.hpp \
+    RealOperands.hpp \
+    CoreCreator.hpp
 unix {
     target.path = /usr/lib
     INSTALLS += target
