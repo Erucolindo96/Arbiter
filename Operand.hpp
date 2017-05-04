@@ -24,7 +24,7 @@ typedef enum AdressingType
 }AdressingType;
 
 */
-
+    class Core;
 
 /**
  * Klasa reprezentująca argumenty i typ adresowania instrukcji. Jest to klasa abstrakcyjna, z której będą dziedziczyły rzeczywiste tryby adresowania.
@@ -36,7 +36,7 @@ typedef enum AdressingType
 class Operand
 {
 public:
-    class Core;
+
     typedef std::shared_ptr<Core> CorePtr;
     typedef std::unique_ptr<Operand> OperandPtr;
 

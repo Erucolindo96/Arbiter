@@ -11,6 +11,9 @@
 namespace arbiter
 {
 
+
+    class Instruction;
+
 /**
      * @brief The Core class Klasa reprezentująca rdzeń, w którym ma toczyć się walka.
      * Pozwala pobierać instrukcję o danym adresie(jako wskazania typu shared_ptr lub kopia głęboka unique_ptr), oraz modyfikować instrukcję o danym adresie.
@@ -19,7 +22,7 @@ namespace arbiter
      */
     class Core
     {
-        //class Instruction;
+
         typedef std::shared_ptr<Instruction> InsSharedPtr;
         typedef std::unique_ptr<Instruction> InsPtr;
 

@@ -11,13 +11,6 @@
 namespace arbiter
 {
 
-/**
-  @class Operand
-
-  Class Operand represent an Operand of istruction Red Code Assembler
-
-
-  */
 
 /*
 typedef enum Opcode
@@ -37,7 +30,8 @@ SLT
 */
 
 
-
+     class Core;
+     class Operand;
 
 /**
  * Instrukcja - klasa implementująca wzorzec komendy. Jest to klasa abstrakcyjna - z niej będą dziedziczyć rzeczywiste instrukcje.
@@ -54,7 +48,8 @@ SLT
 class Instruction
 {
 public:
-    class Core;
+
+
     typedef std::shared_ptr<Core> CorePtr;
 
     typedef std::unique_ptr<Operand> OperandPtr;

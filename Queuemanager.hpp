@@ -3,6 +3,9 @@
 
 #include<vector>
 #include<queue>
+#include"Core.hpp"
+#include<memory>
+#include"Process.hpp"
 namespace arbiter
 {
 
@@ -18,12 +21,12 @@ namespace arbiter
     class QueueManager
     {
     public:
-        typedef shared_ptr<Core> CorePtr;
-        typedef shared_ptr<Warrior> WarriorPtr;
+        typedef std::shared_ptr<Core> CorePtr;
+        //typedef std::shared_ptr<Warrior> WarriorPtr;
 
 
         QueueManager();
-        void addWarrior(const WarriorPtr &war, const Parameters &param);
+     //   void addWarrior(const WarriorPtr &war, const Parameters &param);
 
 
         /**
@@ -54,7 +57,7 @@ namespace arbiter
 
 
     protected:
-        std::vector<std::queue> queue_list;
+        //std::vector<std::queue> queue_list;
         Process actual_process;
     };
 

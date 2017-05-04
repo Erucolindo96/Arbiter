@@ -1,8 +1,10 @@
 #include "Arbiter.hpp"
 
 
-
-
-Arbiter::Arbiter()
+namespace arbiter
 {
+
+    Arbiter::Arbiter():processor_(core_ptr_)
+    {
+    }
 }

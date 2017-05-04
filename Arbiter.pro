@@ -26,7 +26,9 @@ SOURCES += \
     RealOperands.cpp \
     ExecutionLog.cpp \
     main.cpp \
-    CoreCreator.cpp
+    CoreCreator.cpp \
+    Testy/integerregister_test.cpp \
+    Testy/tests_main.cpp
 
 HEADERS += \
     Operand.hpp \

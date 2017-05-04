@@ -3,6 +3,10 @@
 
 #include<memory>
 #include"CoreCreator.hpp"
+#include"Core.hpp"
+#include"Queuemanager.hpp"
+#include"Process.hpp"
+#include"Processor.hpp"
 namespace arbiter
 {
 
@@ -28,8 +32,8 @@ class Arbiter
 {
 
 typedef std::shared_ptr<Core> CorePtr;
-typedef std::shared_ptr<Warrior> WarriorPtr;
-typedef std::shared_ptr<Parameters> ParametersPtr;
+//typedef std::shared_ptr<Warrior> WarriorPtr;
+//typedef std::shared_ptr<Parameters> ParametersPtr;
 
 typedef std::unique_ptr<CoreCreator> CoreCreatorPtr;
 
@@ -59,9 +63,9 @@ public:
      * @param war1 Program tworzonego wyjownika.
      * @param param Parametry z jakimi ma być stworzony)
      */
-    void createWarrior(const WarriorPtr &war1, const ParametersPtr &param);
+    //void createWarrior(const WarriorPtr &war1, const ParametersPtr &param);
 
-    WarriorPtr getWinner(); //jezeli walka nierozstrzygnięta lub trwa zwraca nulla, w przeciwnym wypadku - zwyciezce
+//    WarriorPtr getWinner(); //jezeli walka nierozstrzygnięta lub trwa zwraca nulla, w przeciwnym wypadku - zwyciezce
 
     bool executeNextInstruction();//zwraca informację, czy wciaz trwa walka
 
@@ -77,8 +81,8 @@ private:
 
     CorePtr core_ptr_ ;
 
-    ProcessQueueManager manager;//zarządza kolejkami procesów
-    WarriorPtr winner_;
+    QueueManager manager;//zarządza kolejkami procesów
+    //WarriorPtr winner_;
 
     Processor processor_;
 
