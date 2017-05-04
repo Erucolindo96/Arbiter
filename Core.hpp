@@ -37,17 +37,11 @@ namespace arbiter
         Core(std::vector<InsSharedPtr> &&memory_of_core);
 
 
-        /**
-         * @brief getInstruction Zwraca wskazanie na instrukcję o podanym adresie w rdzeniu.
-         * @param address_of_ins Adres pobieranej instrukcji
-         * @return Wskazanie na instrukcję pod danym adresem
-         */
-        InsSharedPtr getInstructionPtr(const IntegerRegister address_of_ins)const;
 
         /**
          * @brief modifyInstruction Zapisuje nową instrukcję pod adresem w rdzeniu wskazanym przez addres_of_ins
          * @param address_of_ins Adres modyfikowanej instruckji
-         * @param new_ins Nowa instrukcja, która ma zostać zapisana
+         * @param new_ins Nowa instrukcja, która ma zostać zapisana(UWAGA! Jest przenoszona do rdzenia, i tracona dla zewnętrznego posiadacza)
          */
         void modifyInstruction(const IntegerRegister address_of_ins, InsPtr new_ins);
 
@@ -59,13 +53,6 @@ namespace arbiter
         InsPtr getInstructionCopy(const IntegerRegister address_of_ins)const;
 
         /**
-         * @brief operator [] Zwraca wskazanie na instrukcję o podanym adresie w rdzeniu.
-         * @param address_of_ins Adres instrukcji, do której wskazanie będziemy zwracać
-         * @return Wskazanie na instrukcję.
-         */
-        InsSharedPtr operator[](const IntegerRegister address_of_ins);
-
-        /**
          * @brief getCoreSize Zwraca rozmiar rdzenia(uwaga - maksymalny dostępny adres to (core_size - 1)
          * @return Rozmiar rdzenia
          */
@@ -75,7 +62,16 @@ namespace arbiter
     private:
         std::vector<InsSharedPtr> core_memory_;
         mutable std::mutex mutex_;
+
         friend class CoreCreator;
+
+        /**
+         * @brief getInstruction Zwraca wskazanie na instrukcję o podanym adresie w rdzeniu.
+         * @param address_of_ins Adres pobieranej instrukcji
+         * @return Wskazanie na instrukcję pod danym adresem
+         */
+        InsSharedPtr getInstructionPtr(const IntegerRegister address_of_ins)const;
+
 
     };
 

@@ -14,6 +14,8 @@ namespace arbiter
     Core::Core(std::vector<InsSharedPtr> &&memory_of_core):core_memory_(std::move(memory_of_core)), mutex_()
     {}
 
+    //moze być kłopotliwy gdy dwa wątki jednocześnie będa przypisywać rdzenie do siebie(1.wątek this==other, 2.wątek other==this)
+    //spowoduje to najprawdopoboniej zakleszczenie
     Core& Core::operator =(const Core &other)
     {
         std::lock_guard<std::mutex> this_lock(mutex_);
@@ -57,12 +59,6 @@ namespace arbiter
         return temp->clone();
     }
 
-    Core::InsSharedPtr Core::operator[](const IntegerRegister address_of_ins)
-    {
-        std::lock_guard<std::mutex> this_lock(mutex_);
-
-        return getInstructionPtr(address_of_ins);
-    }
 
     unsigned int Core::getCoreSize()const
     {
