@@ -9,7 +9,7 @@ QT       += testlib
 QT       -= gui
 
 TARGET = Arbiter
-TEMPLATE = lib
+TEMPLATE = app
 CONFIG += staticlib
 QMAKE_CXXFLAGS += -std=c++11 #dodane przeze mnie
 

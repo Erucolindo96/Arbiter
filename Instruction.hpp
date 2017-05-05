@@ -70,7 +70,7 @@ public:
     virtual ExecutionLog execute(CorePtr core) = 0;
     virtual InsPtr clone()const = 0;
 
-    virtual ~Instruction();
+    virtual ~Instruction() = 0;
 
 protected:
 
