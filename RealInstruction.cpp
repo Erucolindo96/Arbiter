@@ -4,22 +4,25 @@
 namespace arbiter
 {
 
+
+
     DATInstruction::DATInstruction():Instruction()
     {}
 
-    DATInstruction::DATInstruction(const OperandPtr operand_A, const OperandPtr operand_B): Instruction(operand_A, operand_B)
+    DATInstruction::DATInstruction(const OperandPtr& operand_A, const OperandPtr& operand_B): Instruction(operand_A, operand_B)
     {}
 
     DATInstruction::DATInstruction(const DATInstruction& other):Instruction(other)
     {}
 
-/*byc moze nie jest konieczny skoro jest zdefiniowany ten operator dla klasy bazowej
     DATInstruction& DATInstruction::operator =(const DATInstruction& other)
     {
-        const Instruction& ins_ref = Instruction::operator =(other);
-        return static_cast<const DATInstruction&>(ins_ref);//static_cast<const Instruction&>(other) );
+        //Instruction& ins_ref = Instruction::operator =(other);
+        //return static_cast<DATInstruction&>(ins_ref);//static_cast<const Instruction&>(other) );
+        Instruction::operator =(other) ;
+        return *this;
     }
-*/
+
 
     ExecutionLog DATInstruction::execute(CorePtr core)
     {

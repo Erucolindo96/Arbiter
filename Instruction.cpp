@@ -15,8 +15,14 @@ namespace arbiter
     Instruction::Instruction(const Instruction &other): operand_A_(other.operand_A_->clone()), operand_B_(other.operand_B_->clone())
     {}
 
-   // Instruction::Instruction(const Instruction &&other): operand_A_(std::move(other.operand_A_)), operand_B_(std::move(other.operand_B_))
-   // {}
+    Instruction::Instruction(const OperandPtr &operand_A, const OperandPtr &operand_B): operand_A_(operand_A->clone()), operand_B_(operand_B->clone())
+    {}
+
+    //Instruction::Instruction(const Instruction &&other): operand_A_(other.operand_A_.release()), operand_B_(other.operand_B_.release())
+    //{
+       // other.operand_A_ = nullptr;
+       // other.operand_B_ = nullptr;
+    //}
 
     OperandPtr Instruction::operandA() const
     {
@@ -37,59 +43,18 @@ namespace arbiter
         operand_B_ = operand->clone();
     }
 
+    Instruction::~Instruction()
+    {}
 
-
-
-    /*
-//public
-
-Instruction::Instruction(): operand_A_(), operand_B_(), core_(nullptr)
-{}
-
-Instruction::Instruction(const Instruction &other): operand_A_(other.operand_A_), operand_B_(other.operand_B_), core_(other.core_)
-{}
-
-Instruction::Instruction(const Operand &operand_A, const Operand &operand_B, const CorePtr &core_ptr): operand_A_(operand_A), operand_B_(operand_B), core_(core_ptr)
-{
-    if(operand_A.core_ != core_ptr_ || operand_B.core_ != core_ptr)
-        throw std::invalid_argument("Instruction: invalid arguments in constructor(Operand, Operand, Shared_ptr<Core>) - another core_ptr\n");
-
-}
-
-
-Instruction& Instruction::operator=(const Instruction& other)//zakładam, że instrukcja other ma poprawne operandy
-{
-    if(this==&other)
+//protected
+    Instruction& Instruction::operator=(const Instruction& other)
+    {
+        if(this == &other)
+            return *this;
+        operand_A_ = other.operand_A_->clone();
+        operand_B_ = other.operand_B_->clone();
         return *this;
-    operand_A_ = other.operand_A_;
-    operand_B_ = other.operand_B_;
-    core_ = other.core_;
-    return *this;
-}
-
-Operand Instruction::operandA() const
-{
-    return operand_A_;
-}
-Operand Instruction::operandB() const
-{
-    return operand_B_;
-}
-
-void Instruction::setOperandA(const Operand &operand)
-{
-    operand_A_ = operand;
-
-}
-void Instruction::setOperandB(const Operand &operand)
-{
-    operand_B_ = operand;
-}
-
-
-
-
-*/
+    }
 
 
 }

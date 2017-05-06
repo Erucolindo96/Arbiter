@@ -57,6 +57,15 @@ public:
     typedef std::unique_ptr<Instruction> InsPtr;
     typedef std::shared_ptr<Instruction> InsSharedPtr;
 
+    explicit Instruction();
+    Instruction(const Instruction& other);
+    //Instruction(const Instruction &&other);
+
+    explicit Instruction(const OperandPtr& operand_A, const OperandPtr& operand_B);
+
+    virtual Instruction& operator=(const Instruction& other);
+ //   Instruction& operator =(const Instruction &&other);
+
     OperandPtr operandA() const;
     OperandPtr operandB() const;
 
@@ -70,7 +79,7 @@ public:
     virtual ExecutionLog execute(CorePtr core) = 0;
     virtual InsPtr clone()const = 0;
 
-    virtual ~Instruction() = 0;
+    virtual ~Instruction()  ;
 
 protected:
 
@@ -78,14 +87,7 @@ protected:
     OperandPtr operand_B_;
 
 
-    Instruction();
-    Instruction(const Instruction& other);
-  //  Instruction(const Instruction &&other);
 
-    Instruction(const OperandPtr& operand_A, const OperandPtr& operand_B);
-
-    virtual Instruction& operator=(const Instruction& other);
- //   Instruction& operator =(const Instruction &&other);
 
 
 

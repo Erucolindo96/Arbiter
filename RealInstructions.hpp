@@ -12,25 +12,25 @@ namespace arbiter
     //typedef std::unique_ptr<IndirectOperand> IndirectOperandPtr;
     //typedef std::unique_ptr<IndirectDecrementOperand> DecrementOperandPtr;
     //typedef std::unique_ptr<IndirectIncrementOperand> IncrementOperandPtr;
-
+    class Instruction;
 
     class DATInstruction: public Instruction
     {
-        //typedef std::unique_ptr<Operand> OperandPtr;
-       // typedef std::shared_ptr<Instruction> InsPtr;
 
+    public:
         explicit DATInstruction();
-        explicit DATInstruction(const OperandPtr operand_A, const OperandPtr operand_B);
         DATInstruction(const DATInstruction& other);
-        //to chyba tak nie dziala
-        //wszystkie dozwolone konstruktowy dla tej instrukcji - tylko operand natychmiastowy i posredni zmniejszany
-        //explicit DATInstruction(const ImmidOperandPtr operand_A, const ImmidOperandPtr operand_B);
-        //explicit DATInstruction(const DecrementOperandPtr operand_A, const DecrementOperandPtr operand_B);
-        //explicit DATInstruction(const DecrementOperandPtr operand_A, const ImmidOperandPtr operand_B);
-        //explicit DATInstruction(const ImmidOperandPtr operand_A, const DecrementOperandPtr operand_B);
+        explicit DATInstruction(const OperandPtr &operand_A, const OperandPtr &operand_B);
 
-        //DATInstruction& operator=(const DATInstruction& other);
 
+        virtual DATInstruction& operator=(const DATInstruction& other);
+
+/*        OperandPtr operandA() const;
+        OperandPtr operandB() const;
+
+        void setOperandA(const OperandPtr& operand);
+        void setOperandB(const OperandPtr& operand);
+*/
         virtual ExecutionLog execute(CorePtr core) ;
         virtual InsPtr clone()const;
 

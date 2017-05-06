@@ -10,7 +10,7 @@ QT       -= gui
 
 TARGET = Arbiter
 TEMPLATE = app
-CONFIG += staticlib
+#CONFIG += staticlib
 QMAKE_CXXFLAGS += -std=c++11 #dodane przeze mnie
 
 SOURCES += \
