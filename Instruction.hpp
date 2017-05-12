@@ -78,6 +78,7 @@ public:
      */
     virtual ExecutionLog execute(CorePtr core) = 0;
     virtual InsPtr clone()const = 0;
+    //virtual Color getColor()const = 0;
 
     virtual ~Instruction()  ;
 

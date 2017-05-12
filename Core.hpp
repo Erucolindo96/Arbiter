@@ -7,7 +7,7 @@
 #include<mutex>
 #include"IntegerRegister.hpp"
 #include"CoreCreator.hpp"
-
+#include"Observer.hpp"
 namespace arbiter
 {
 
@@ -33,11 +33,12 @@ namespace arbiter
         Core();
         Core(const Core &other);
         Core& operator =(const Core &other);
+
         /**
          * @brief Core Tworzy rdzeń na podstawie vectora wskazań na instrukcje. Przejmuje ten vector i ustawia jako swój.
          * @param memory_of_core Vector reprezentujący instniejące instrukcje w rdzeniu.
          */
-        Core(std::vector<InsSharedPtr> &&memory_of_core);
+     //   Core(std::vector<InsSharedPtr> &&memory_of_core);
 
 
 
@@ -61,12 +62,24 @@ namespace arbiter
          */
         unsigned int getCoreSize()const;
 
+        /**
+         * @brief setObserver Dodaje wskazanie na istniejącego obserwatora. Jeżeli wskazanie na obserwatora juz istnieje to zostanie usunięte i zastąpione nowym
+         * @param obs_ptr Istniejący obserwator, który będzie informowany o zmianach stanu obiektu
+         */
+        void setObserver(std::shared_ptr<Observer> obs_ptr);
+
+
+
+
 
     private:
         std::vector<InsSharedPtr> core_memory_;
         mutable std::mutex mutex_;
+        std::shared_ptr<Observer> observer_ptr_;
 
         friend class CoreCreator;
+        friend class Observer;
+
 
         /**
          * @brief getInstruction Zwraca wskazanie na instrukcję o podanym adresie w rdzeniu.
@@ -75,6 +88,10 @@ namespace arbiter
          */
         InsSharedPtr getInstructionPtr(const IntegerRegister address_of_ins)const;
 
+        /**
+         * @brief notifyObserver Informuje obserwatora, że stan obiektu się zmienił
+         */
+        void notifyObserver();
 
     };
 

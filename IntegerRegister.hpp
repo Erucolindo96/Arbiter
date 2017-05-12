@@ -3,6 +3,13 @@
 
 #include<stdexcept>
 
+
+/**
+UWAGA : Być może zajdzie potrzeba przerobić ta klasę tak, aby mogła przechowywać równiez liczby ujemne modulo rozmiar rdzenia.
+*/
+
+
+
 namespace arbiter
 {
 /**
@@ -17,7 +24,7 @@ public:
 
     IntegerRegister& operator=(const IntegerRegister &other);
 
-    int getValue()const;
+    unsigned int getValue()const;
     void setValue(const int value);
 
     unsigned int getSize()const;

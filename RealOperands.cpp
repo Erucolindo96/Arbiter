@@ -20,7 +20,7 @@ namespace arbiter
 
     IntegerRegister ImmidiateOperand::countArgument(CorePtr core)
     {
-        throw std::runtime_error("TODO");
+        return value_;//bo jest natychmiastowy
     }
 
 }

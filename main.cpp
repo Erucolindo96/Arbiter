@@ -5,8 +5,8 @@ using namespace arbiter;
 
 //wyłączone, fcja main w pliku integerregistertest.cpp
 
-
-/*int main()
+/*
+int main()
 {
     std::cout<<"Testy sie wykonaly"<<std::endl;
 

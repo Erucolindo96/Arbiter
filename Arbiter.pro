@@ -10,8 +10,10 @@ QT       -= gui
 
 TARGET = Arbiter
 TEMPLATE = app
-#CONFIG += staticlib
+CONFIG += build_all warn_on
 QMAKE_CXXFLAGS += -std=c++11 #dodane przeze mnie
+LIBS += -lboost_unit_test_framework
+QMAKE_CXXFLAGS += -Wall
 
 SOURCES += \
     Arbiter.cpp \
@@ -28,7 +30,9 @@ SOURCES += \
     main.cpp \
     CoreCreator.cpp \
     Testy/integerregister_test.cpp \
-    Testy/tests_main.cpp
+    Testy/tests_main.cpp \
+    RealCoreCreators.cpp \
+    Warrior.cpp
 
 HEADERS += \
     Operand.hpp \
@@ -42,7 +46,10 @@ HEADERS += \
     ExecutionLog.hpp \
     RealInstructions.hpp \
     RealOperands.hpp \
-    CoreCreator.hpp
+    CoreCreator.hpp \
+    Observer.hpp \
+    RealCoreCreators.hpp \
+    Warrior.hpp
 unix {
     target.path = /usr/lib
     INSTALLS += target

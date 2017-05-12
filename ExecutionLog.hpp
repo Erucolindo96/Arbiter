@@ -16,7 +16,7 @@ namespace arbiter
         bool is_proc_live_;
         bool is_proc_split_;
 
-        ExecutionLog(const IntegerRegister &next_pc, const bool is_proc_live = false, const bool is_proc_split = false);
+        ExecutionLog(const IntegerRegister &next_pc, const bool is_proc_live , const bool is_proc_split );
         ExecutionLog(const ExecutionLog& other);
 
 

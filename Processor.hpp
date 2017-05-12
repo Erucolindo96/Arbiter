@@ -40,7 +40,7 @@ namespace arbiter
         CorePtr core_ptr_;
 
         InsPtr loaded_instruction_;
-        ExecutionLog exec_log_;
+        ExecutionLog exec_log_;//byc moze niepotrzebne
         Process actual_proc_;
 
 };

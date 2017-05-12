@@ -5,12 +5,35 @@
 namespace arbiter
 {
 
+int getModulo(const int MODULE, int value)
+{
+    //operator % dziwnie działa dla liczb ujemnych, powinien dawac dodatni adres komorki pamieci pomniejszonej o value
+    //dlatego robimy to ręcznie
+
+    if(value >= 0)
+    {
+        return value%MODULE;
+    }
+    else
+    {
+        while(value < 0)
+        {
+            value+=MODULE;//poczatkowo jest tam value, teraz zwiekszamy dopoki nie dostaniemy dodatniej liczby - i to bdzie nasz wynik
+        }
+        return value;
+    }
+}
 
  IntegerRegister::IntegerRegister(const IntegerRegister &other): CORE_SIZE_(other.CORE_SIZE_), value_(other.value_)
 {}
 
- IntegerRegister::IntegerRegister( const unsigned int CORE_SIZE, const int value ): CORE_SIZE_(CORE_SIZE), value_(value)
-{}
+ IntegerRegister::IntegerRegister( const unsigned int CORE_SIZE, const int value ): CORE_SIZE_(CORE_SIZE), value_()
+{
+    //operator % dziwnie działa dla liczb ujemnych, powinien dawac dodatni adres komorki pamieci pomniejszonej o value
+    //dlatego robimy to ręcznie
+
+    value_ = getModulo(CORE_SIZE_, value);
+}
 
 
 IntegerRegister& IntegerRegister::operator=(const IntegerRegister &other)
@@ -24,14 +47,15 @@ IntegerRegister& IntegerRegister::operator=(const IntegerRegister &other)
     return *this;
 }
 
-int IntegerRegister::getValue()const
+unsigned int IntegerRegister::getValue()const
 {
     return value_;
 }
 
 void IntegerRegister::setValue(const int value)
 {
-    value_ = value;
+    value_ = getModulo(CORE_SIZE_, value);
+
 }
 
 unsigned int IntegerRegister::getSize()const
@@ -48,13 +72,15 @@ IntegerRegister IntegerRegister::operator+(const IntegerRegister &added)
 IntegerRegister IntegerRegister::operator-(const IntegerRegister &added)
 {
     checkArgument(added);
-    return IntegerRegister(CORE_SIZE_, (value_- added.value_)%CORE_SIZE_ );
+    return IntegerRegister(CORE_SIZE_, getModulo(CORE_SIZE_, value_ - added.value_) );
 
 }
 
 IntegerRegister IntegerRegister::operator++()
 {
-    return IntegerRegister(CORE_SIZE_, (value_+1)%CORE_SIZE_);
+    ++value_;
+    value_ = value_%CORE_SIZE_;
+    return *this;
 }
 
 IntegerRegister IntegerRegister::operator++(int)
@@ -66,7 +92,9 @@ IntegerRegister IntegerRegister::operator++(int)
 
 IntegerRegister IntegerRegister::operator--()
 {
-    return IntegerRegister(CORE_SIZE_, (value_-1)%CORE_SIZE_);
+    --value_;
+    value_ = getModulo(CORE_SIZE_, value_);
+    return *this;
 }
 
 IntegerRegister IntegerRegister::operator--(int)
