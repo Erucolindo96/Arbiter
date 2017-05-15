@@ -35,34 +35,28 @@ namespace arbiter
 class Arbiter
 {
 
-typedef std::shared_ptr<Core> CorePtr;
+typedef std::unique_ptr<Core> CorePtr;
 //typedef std::shared_ptr<Warrior> WarriorPtr;
 //typedef std::shared_ptr<Parameters> ParametersPtr;
 
 typedef std::unique_ptr<CoreCreator> CoreCreatorPtr;
-typedef std::shared_ptr<Observer> ObserverPtr;
+typedef std::unique_ptr<Observer> ObserverPtr;
 
 public:
-    Arbiter();
-
+    Arbiter(ObserverPtr &obs_ptr, CoreCreatorPtr core_creator);
 
     /**
      * @brief addWarriors Dodaje wojowników, którzy maja rozegrać walkę
      * @param warriors Wektor wojowników
      */
-    void addWarriors(std::vector<Warrior> &warriors);
-    /**
-     * @brief createCore Tworzy rdzeń o podanych parametrach
-     * @param core_creator Klasa tworząca rdzeń.
-     */
-    void createCore(const CoreCreatorPtr core_creator);
+    void addWarriors(const std::vector<Warrior> &warriors);
 
     /**
      * @brief addCoreObserver Dodaje istniejącemu rdzeniowi wskazanie na obserwatora. Jesli rdzeń nie istnieje - rzuca wyjątek.
      * @param observ_ptr Wskazanie na obserwatora, któremu rdzeń będzie raportował o zmianach.
      * @throw
      */
-    void addCoreObserver(const ObserverPtr observ_ptr);
+//    void addCoreObserver(const ObserverPtr observ_ptr);
 
 
     /**
@@ -82,13 +76,24 @@ private:
      */
     void createProcess(Process actual_proc);
 
+    /**
+     * @brief createCore Tworzy rdzeń o podanych parametrach
+     * @param core_creator Klasa tworząca rdzeń.
+     */
+    void createCore( CoreCreatorPtr core_creator);
+
+
+    Arbiter() = delete;
 
     //CoreCreatorPtr core_creator_;
     QueueManager manager;//zarządza kolejkami procesów
     std::vector<Warrior> warriors_;
+
     CorePtr core_ptr_ ;
 
     Processor processor_;
+
+    ObserverPtr &observer_ptr_;
 
 
 

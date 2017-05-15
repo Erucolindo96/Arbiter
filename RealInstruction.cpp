@@ -17,14 +17,12 @@ namespace arbiter
 
     DATInstruction& DATInstruction::operator =(const DATInstruction& other)
     {
-        //Instruction& ins_ref = Instruction::operator =(other);
-        //return static_cast<DATInstruction&>(ins_ref);//static_cast<const Instruction&>(other) );
         Instruction::operator =(other) ;
         return *this;
     }
 
 
-    ExecutionLog DATInstruction::execute(CorePtr core)
+    ExecutionLog DATInstruction::execute(CorePtr &core)
     {
         throw std::runtime_error("TODO");
     }

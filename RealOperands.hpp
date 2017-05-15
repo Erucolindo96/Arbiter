@@ -16,7 +16,7 @@ namespace arbiter
 
 
         virtual Operand::OperandPtr clone()const;
-        virtual IntegerRegister countArgument(CorePtr core);
+        virtual IntegerRegister countArgument(CorePtr &core);
     };
 
     class DirectOperand: public Operand

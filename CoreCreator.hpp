@@ -7,6 +7,7 @@
 #include"Instruction.hpp"
 #include<memory>
 #include"Warrior.hpp"
+#include"Observer.hpp"
 
 namespace arbiter
 {
@@ -18,17 +19,20 @@ namespace arbiter
     {
         typedef std::shared_ptr<Instruction> InsSharedPtr;
         typedef std::unique_ptr<Instruction> InsPtr;
-        typedef std::shared_ptr<Core> CorePtr;
+        typedef std::unique_ptr<Core> CorePtr;
+        typedef std::unique_ptr<Observer> ObserverPtr;
 
     public:
-        CoreCreator(const unsigned int CORE_TO_CREATE_SIZE, std::vector<Warrior> &warriors_to_create);
+        CoreCreator(const unsigned int CORE_TO_CREATE_SIZE, const std::vector<Warrior> &warriors_to_create);
+
+
+         std::vector<Warrior> getWarriorsCopy()const;
 
         /**
          * @brief createCore() Tworzy rdzeń w postaci wektora Instrukcji
          * @return Wskazanie do utworzonego rdzenia
          */
-
-        virtual CorePtr createCore() const = 0;
+        virtual CorePtr createCore(const ObserverPtr &obs_ptr) const = 0;
         /**
          * @brief modifyCore Modyfikuje już istniejący rdzeń w odpowiedni sposób
          * @param existed_core_ptr Wskazanie do istniejącego już rdzenia
@@ -37,7 +41,7 @@ namespace arbiter
 
 
     private:
-        std::vector<Warrior> &warriors_to_create_;
+        std::vector<Warrior> warriors_to_create_;
         const unsigned int CORE_TO_CREATE_SIZE_;
 
     };

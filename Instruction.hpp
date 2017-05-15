@@ -50,21 +50,20 @@ class Instruction
 public:
 
 
-    typedef std::shared_ptr<Core> CorePtr;
-
+    typedef std::unique_ptr<Core> CorePtr;
     typedef std::unique_ptr<Operand> OperandPtr;
-
     typedef std::unique_ptr<Instruction> InsPtr;
-    typedef std::shared_ptr<Instruction> InsSharedPtr;
+
 
     explicit Instruction();
     Instruction(const Instruction& other);
-    //Instruction(const Instruction &&other);
+    Instruction( Instruction &&other);
 
     explicit Instruction(const OperandPtr& operand_A, const OperandPtr& operand_B);
 
     virtual Instruction& operator=(const Instruction& other);
- //   Instruction& operator =(const Instruction &&other);
+    virtual Instruction& operator=( Instruction &&other);
+
 
     OperandPtr operandA() const;
     OperandPtr operandB() const;
@@ -76,9 +75,8 @@ public:
      * @brief execute Wykonuje instrukcję, tzn oblicza argumenty, modyfikuje rdzeń, i zwraca do wołającego informację o wykonaniu
      * @return Informacja o wykonaniu instrukcji.
      */
-    virtual ExecutionLog execute(CorePtr core) = 0;
+    virtual ExecutionLog execute(CorePtr &core) = 0;
     virtual InsPtr clone()const = 0;
-    //virtual Color getColor()const = 0;
 
     virtual ~Instruction()  ;
 
@@ -87,12 +85,8 @@ protected:
     OperandPtr operand_A_;
     OperandPtr operand_B_;
 
-
-
-
-
-
-
 };
+
+//    std::vector<std::unique_ptr<Instruction> >&& copyInstructionVector(const std::vector<std::unique_ptr<Instruction> > copy_vect);
 }
 #endif // INSTRUCTION_HPP

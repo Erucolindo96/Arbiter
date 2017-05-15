@@ -27,6 +27,9 @@ int getModulo(const int MODULE, int value)
  IntegerRegister::IntegerRegister(const IntegerRegister &other): CORE_SIZE_(other.CORE_SIZE_), value_(other.value_)
 {}
 
+ IntegerRegister::IntegerRegister(const IntegerRegister &&other):CORE_SIZE_(other.CORE_SIZE_), value_(other.value_)
+ {}
+
  IntegerRegister::IntegerRegister( const unsigned int CORE_SIZE, const int value ): CORE_SIZE_(CORE_SIZE), value_()
 {
     //operator % dziwnie działa dla liczb ujemnych, powinien dawac dodatni adres komorki pamieci pomniejszonej o value
@@ -46,6 +49,18 @@ IntegerRegister& IntegerRegister::operator=(const IntegerRegister &other)
     value_ = other.value_;
     return *this;
 }
+
+IntegerRegister& IntegerRegister::operator=(const IntegerRegister &&other)
+{
+
+    checkArgument(other);
+    if(this == &other)
+        return *this;
+
+    value_ = other.value_;
+    return *this;
+}
+
 
 unsigned int IntegerRegister::getValue()const
 {

@@ -25,13 +25,7 @@ namespace arbiter
 
         virtual DATInstruction& operator=(const DATInstruction& other);
 
-/*        OperandPtr operandA() const;
-        OperandPtr operandB() const;
-
-        void setOperandA(const OperandPtr& operand);
-        void setOperandB(const OperandPtr& operand);
-*/
-        virtual ExecutionLog execute(CorePtr core) ;
+        virtual ExecutionLog execute(CorePtr &core);
         virtual InsPtr clone()const;
 
         virtual ~DATInstruction();

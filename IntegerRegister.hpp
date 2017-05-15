@@ -20,9 +20,10 @@ class IntegerRegister
 public:
     IntegerRegister(const IntegerRegister &other);
     explicit IntegerRegister( const unsigned int CORE_SIZE, const int value = 0);
-
+    IntegerRegister(const IntegerRegister &&other);
 
     IntegerRegister& operator=(const IntegerRegister &other);
+    IntegerRegister& operator=(const IntegerRegister &&other);
 
     unsigned int getValue()const;
     void setValue(const int value);

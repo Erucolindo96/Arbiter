@@ -23,16 +23,18 @@ namespace arbiter
     class Core
     {
 
-        typedef std::shared_ptr<Instruction> InsSharedPtr;
+       // typedef std::shared_ptr<Instruction> InsSharedPtr;
         typedef std::unique_ptr<Instruction> InsPtr;
 
-        typedef std::shared_ptr<Core> CorePtr;
+        typedef std::unique_ptr<Core> CorePtr;
 
 
     public:
-        Core();
-        Core(const Core &other);
-        Core& operator =(const Core &other);
+        Core( std::unique_ptr<Observer> &obs_ptr);
+
+//        Core(const Core &other);
+
+       // Core& operator =(const Core &other);
 
         /**
          * @brief Core Tworzy rdzeń na podstawie vectora wskazań na instrukcje. Przejmuje ten vector i ustawia jako swój.
@@ -66,27 +68,29 @@ namespace arbiter
          * @brief setObserver Dodaje wskazanie na istniejącego obserwatora. Jeżeli wskazanie na obserwatora juz istnieje to zostanie usunięte i zastąpione nowym
          * @param obs_ptr Istniejący obserwator, który będzie informowany o zmianach stanu obiektu
          */
-        void setObserver(std::shared_ptr<Observer> obs_ptr);
+//        void setObserver(std::unique_ptr<Observer> &obs_ptr);
 
 
 
 
 
     private:
-        std::vector<InsSharedPtr> core_memory_;
+        std::vector<InsPtr> core_memory_;
         mutable std::mutex mutex_;
-        std::shared_ptr<Observer> observer_ptr_;
+
+        std::unique_ptr<Observer> &observer_ptr_;
 
         friend class CoreCreator;
         friend class Observer;
+        Core() = delete;//musimy podac w konstruktorze obserwatora
 
 
         /**
-         * @brief getInstruction Zwraca wskazanie na instrukcję o podanym adresie w rdzeniu.
+         * @brief getInstruction Zwraca referencje na instrukcję o podanym adresie w rdzeniu.
          * @param address_of_ins Adres pobieranej instrukcji
          * @return Wskazanie na instrukcję pod danym adresem
          */
-        InsSharedPtr getInstructionPtr(const IntegerRegister address_of_ins)const;
+        InsPtr& getInstructionRef(const IntegerRegister address_of_ins)const;
 
         /**
          * @brief notifyObserver Informuje obserwatora, że stan obiektu się zmienił

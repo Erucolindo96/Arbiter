@@ -37,7 +37,7 @@ class Operand
 {
 public:
 
-    typedef std::shared_ptr<Core> CorePtr;
+    typedef std::unique_ptr<Core> CorePtr;
     typedef std::unique_ptr<Operand> OperandPtr;
 
     explicit Operand(const IntegerRegister value);
@@ -50,7 +50,7 @@ public:
     IntegerRegister getValue()const;
     void setValue(const IntegerRegister value);
 
-    virtual IntegerRegister countArgument(CorePtr core) = 0;
+    virtual IntegerRegister countArgument(CorePtr &core) = 0;
     virtual OperandPtr clone()const = 0;
 
 

@@ -18,7 +18,7 @@ namespace arbiter
         return Operand::OperandPtr(new ImmidiateOperand(*this) );
     }
 
-    IntegerRegister ImmidiateOperand::countArgument(CorePtr core)
+    IntegerRegister ImmidiateOperand::countArgument(CorePtr &core)
     {
         return value_;//bo jest natychmiastowy
     }

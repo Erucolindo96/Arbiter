@@ -12,14 +12,13 @@ namespace arbiter
 
     class Processor
     {
-        typedef std::shared_ptr<Core> CorePtr;
-        typedef std::shared_ptr<Instruction> InsPtr;
+        typedef std::unique_ptr<Core> CorePtr;
+        typedef std::unique_ptr<Instruction> InsPtr;
     public:
-        //Processor(const int CORE_SIZE);
-        Processor(CorePtr core);
 
-        //void setCorePtr(CorePtr core_ptr);
-        CorePtr getCorePtr()const;
+        Processor(CorePtr &core);
+
+        CorePtr& getCorePtr()const;
 
 
         /**
@@ -34,14 +33,14 @@ namespace arbiter
         /**
          * @brief loadInstruction Ładuje instrukcję procesu actual_proc_ do procesora
          */
-        void loadInstruction();
-        Processor() = delete;//nie znamy rozmiaru rdzenia, wiec nie mozemy zainicjowac proc_pc procesu actual_proc
+        void loadInstruction(const Process &proc);
+        Processor() = delete;//trzeba zainicjowac referencje
 
-        CorePtr core_ptr_;
+        CorePtr &core_ptr_;
 
         InsPtr loaded_instruction_;
         ExecutionLog exec_log_;//byc moze niepotrzebne
-        Process actual_proc_;
+        //Process actual_proc_;
 
 };
 
