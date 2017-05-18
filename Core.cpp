@@ -34,7 +34,7 @@ namespace arbiter
 */
     void Core::modifyInstruction(const IntegerRegister address_of_ins, InsPtr new_ins)
     {
-        std::lock_guard<std::mutex> this_lock(mutex_);
+       // std::lock_guard<std::mutex> this_lock(mutex_);
 
         InsPtr &ins_ref = getInstructionRef(address_of_ins);
         ins_ref = std::move(new_ins);
@@ -42,9 +42,10 @@ namespace arbiter
         notifyObserver();
     }
 
+
     Core::InsPtr Core::getInstructionCopy(const IntegerRegister address_of_ins)const
     {
-        std::lock_guard<std::mutex> this_lock(mutex_);
+        //std::lock_guard<std::mutex> this_lock(mutex_);
 
         InsPtr &ref = getInstructionRef(address_of_ins);
         return ref->clone();
@@ -53,7 +54,7 @@ namespace arbiter
 
     unsigned int Core::getCoreSize()const
     {
-        std::lock_guard<std::mutex> this_lock(mutex_);
+        //std::lock_guard<std::mutex> this_lock(mutex_);
 
         return core_memory_.size();
     }
@@ -62,7 +63,7 @@ namespace arbiter
 
     Core::InsPtr& Core::getInstructionRef(const IntegerRegister address_of_ins)const
     {
-        std::lock_guard<std::mutex> this_lock(mutex_);
+        //std::lock_guard<std::mutex> this_lock(mutex_);
 
         //jesli IntegerRegister nie ma takiego samego rozmiaru jak rdzen
         if(address_of_ins.getSize() != getCoreSize())

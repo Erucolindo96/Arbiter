@@ -32,7 +32,10 @@ SOURCES += \
     Testy/integerregister_test.cpp \
     Testy/tests_main.cpp \
     RealCoreCreators.cpp \
-    Warrior.cpp
+    Warrior.cpp \
+    Testy/operand_test.cpp \
+    Testy/instruction_test.cpp \
+    Testy/corecreator_tests.cpp
 
 HEADERS += \
     Operand.hpp \

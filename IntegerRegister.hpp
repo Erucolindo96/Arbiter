@@ -30,8 +30,8 @@ public:
 
     unsigned int getSize()const;
 
-    IntegerRegister operator+(const IntegerRegister &added);
-    IntegerRegister operator-(const IntegerRegister &added);
+    IntegerRegister operator+(const IntegerRegister &added)const;
+    IntegerRegister operator-(const IntegerRegister &added)const;
 
     IntegerRegister operator++();
     IntegerRegister operator++(int);
@@ -39,6 +39,8 @@ public:
     IntegerRegister operator--();
     IntegerRegister operator--(int);
 
+    bool operator==(const IntegerRegister &other)const;
+    bool operator!=(const IntegerRegister &other)const;
 
 protected:
     const unsigned int CORE_SIZE_;
@@ -46,7 +48,7 @@ protected:
 
     IntegerRegister() = delete ;//zabroniony - aby pamietac o zainicjowaniu rozmiaru rdzenia)
 
-    void checkArgument(const IntegerRegister &other);//sprawdza czy rejestry maja taki sam CORE_SIZE. Rzuca wyjątek std::invalidArgument
+    void checkArgument(const IntegerRegister &other)const;//sprawdza czy rejestry maja taki sam CORE_SIZE. Rzuca wyjątek std::invalidArgument
 };
 
 

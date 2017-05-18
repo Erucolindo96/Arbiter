@@ -64,6 +64,12 @@ public:
     virtual Instruction& operator=(const Instruction& other);
     virtual Instruction& operator=( Instruction &&other);
 
+    IntegerRegister getValueOperandA()const;
+    IntegerRegister getValueOperandB()const;
+
+    OperandPtr& getOperandARef();
+    OperandPtr& getOperandBRef();
+
 
     OperandPtr operandA() const;
     OperandPtr operandB() const;
@@ -75,7 +81,7 @@ public:
      * @brief execute Wykonuje instrukcję, tzn oblicza argumenty, modyfikuje rdzeń, i zwraca do wołającego informację o wykonaniu
      * @return Informacja o wykonaniu instrukcji.
      */
-    virtual ExecutionLog execute(CorePtr &core) = 0;
+    virtual ExecutionLog execute(CorePtr &core, const IntegerRegister &instruction_PC) = 0;
     virtual InsPtr clone()const = 0;
 
     virtual ~Instruction()  ;

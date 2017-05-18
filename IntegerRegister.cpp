@@ -78,13 +78,13 @@ unsigned int IntegerRegister::getSize()const
     return CORE_SIZE_;
 }
 
-IntegerRegister IntegerRegister::operator+(const IntegerRegister &added)
+IntegerRegister IntegerRegister::operator+(const IntegerRegister &added)const
 {
     checkArgument(added);
     return IntegerRegister(CORE_SIZE_, (value_+ added.value_)%CORE_SIZE_);
 }
 
-IntegerRegister IntegerRegister::operator-(const IntegerRegister &added)
+IntegerRegister IntegerRegister::operator-(const IntegerRegister &added)const
 {
     checkArgument(added);
     return IntegerRegister(CORE_SIZE_, getModulo(CORE_SIZE_, value_ - added.value_) );
@@ -119,8 +119,23 @@ IntegerRegister IntegerRegister::operator--(int)
     return prev;
 }
 
+bool IntegerRegister::operator ==(const IntegerRegister &other)const
+{
+    checkArgument(other);
 
-void IntegerRegister::checkArgument(const IntegerRegister &other)
+    if(other.getValue() == getValue() )
+        return true;
+    else
+        return false;
+}
+
+bool IntegerRegister::operator!=(const IntegerRegister &other)const
+{
+    return operator ==(other);
+}
+
+
+void IntegerRegister::checkArgument(const IntegerRegister &other)const
 {
     if(CORE_SIZE_ != other.CORE_SIZE_)
         throw std::invalid_argument("IntegerRegister: Comparision, Adding or Subtracting beetwen registers with another Core sizes");

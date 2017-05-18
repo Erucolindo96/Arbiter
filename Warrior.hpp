@@ -3,7 +3,7 @@
 
 #include<vector>
 #include"Instruction.hpp"
-#include"Warrior.hpp"
+//#include"Warrior.hpp"
 
 namespace arbiter
 {
@@ -15,9 +15,9 @@ class Instruction;
      * Wykorzystuje ją Arbiter oraz CoreCreator do tworzenia rdzenia.
      *
      * Klasa nie ma składowych prywatnych, ponieważ unique_ptry przechowywane w vectorze nie maja konstruktora kopiującego - co nie pozwala zwracać skopiowanego vectora przez wartość.
-     * Każdy, kto chce dostać kopię Warriora musi sam zadbać o napisanie funkcji kopiującej jego kod.
+     * Każdy, kto chce dostać kopię instrukcji Warriora musi sam zadbać o napisanie funkcji kopiującej jego instrukcje.
      *
-     * Działa natomiast konstruktor kopiujący,settery oraz getter nazwy wojownika, i jego również można używać do kopiowania.
+     * Działa natomiast konstruktor kopiujący, operator przypisania oraz settery , i ich również można używać do kopiowania.
      */
     struct Warrior
     {
@@ -33,9 +33,7 @@ class Instruction;
           Cholera wie jak to sie zachowa, lepiej nie używać
           Ale teraz uzywa konstrukotra przenoszącego vectora, to moze bedzie lepiej
          */
-        Warrior(const std::string &name, std::vector<InsPtr> &&code_of_warrior);
-
-
+        //Warrior(const std::string &name, std::vector<InsPtr> &&code_of_warrior);
 
         Warrior& operator=(const Warrior &other);
 
@@ -43,6 +41,7 @@ class Instruction;
 
         void setName(const std::string &name);
         void setInstructions(const std::vector<InsPtr> &instructions);
+        void addInstruction(const InsPtr &added);
 
         std::vector<InsPtr> instuctions_;
         std::string name_;

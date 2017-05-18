@@ -6,13 +6,15 @@
 #include<memory>
 #include<mutex>
 #include"IntegerRegister.hpp"
-#include"CoreCreator.hpp"
+//#include"CoreCreator.hpp"
 #include"Observer.hpp"
 namespace arbiter
 {
 
 
     class Instruction;
+    class CoreCreator;
+
 
 /**
      * @brief The Core class Klasa reprezentująca rdzeń, w którym ma toczyć się walka.
@@ -24,13 +26,15 @@ namespace arbiter
     {
 
        // typedef std::shared_ptr<Instruction> InsSharedPtr;
+
+
+    public:
         typedef std::unique_ptr<Instruction> InsPtr;
 
         typedef std::unique_ptr<Core> CorePtr;
 
 
-    public:
-        Core( std::unique_ptr<Observer> &obs_ptr);
+        Core(std::unique_ptr<Observer> &obs_ptr);
 
 //        Core(const Core &other);
 
@@ -50,6 +54,14 @@ namespace arbiter
          * @param new_ins Nowa instrukcja, która ma zostać zapisana(UWAGA! Jest przenoszona do rdzenia, i tracona dla zewnętrznego posiadacza)
          */
         void modifyInstruction(const IntegerRegister address_of_ins, InsPtr new_ins);
+
+        /**
+         * @brief getInstruction Zwraca referencje na instrukcję o podanym adresie w rdzeniu.
+         * @param address_of_ins Adres pobieranej instrukcji
+         * @return Wskazanie na instrukcję pod danym adresem
+         */
+        InsPtr& getInstructionRef(const IntegerRegister address_of_ins)const;
+
 
         /**
          * @brief getInstructionCopy Tworzy kopię głęboką instrukcji o podanym adresie w rdzeniu.
@@ -82,15 +94,12 @@ namespace arbiter
 
         friend class CoreCreator;
         friend class Observer;
+        friend class DATCreator;
+
+
         Core() = delete;//musimy podac w konstruktorze obserwatora
 
 
-        /**
-         * @brief getInstruction Zwraca referencje na instrukcję o podanym adresie w rdzeniu.
-         * @param address_of_ins Adres pobieranej instrukcji
-         * @return Wskazanie na instrukcję pod danym adresem
-         */
-        InsPtr& getInstructionRef(const IntegerRegister address_of_ins)const;
 
         /**
          * @brief notifyObserver Informuje obserwatora, że stan obiektu się zmienił

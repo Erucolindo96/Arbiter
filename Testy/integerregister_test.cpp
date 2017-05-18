@@ -244,6 +244,30 @@ BOOST_AUTO_TEST_CASE(Decrementing)
     }
 
 }
+
+BOOST_AUTO_TEST_CASE(comparing)
+{
+    IntegerRegister one(MAX_COUNT, 5), invalid(MAX_COUNT+1, 5), two(MAX_COUNT,5);
+    BOOST_CHECK_THROW(one==invalid, std::invalid_argument);
+    BOOST_CHECK(one == two);
+
+    std::default_random_engine generator;
+    std::uniform_int_distribution<int> distribution(-MAX_COUNT,MAX_COUNT+50);
+    int random_num = distribution(generator);
+
+    for(int i = 0;i<20;++i)
+    {
+        random_num = distribution(generator);
+        one.setValue(random_num);
+        two.setValue(random_num+1);
+        BOOST_CHECK(!(one==two));
+
+        two.setValue(random_num);
+        BOOST_CHECK(one == two);
+    }
+
+}
+
 BOOST_AUTO_TEST_CASE(All_other)
 {
     //czy gdy wstawimy ujemna wartosc to da nam modulo tej wartosci

@@ -19,7 +19,7 @@ namespace arbiter
     ExecutionLog Processor::executeProcess(const Process &proc)
     {
         loadInstruction(proc);
-        return loaded_instruction_->execute(core_ptr_);
+        return loaded_instruction_->execute(core_ptr_, proc.getProcPc());
     }
 
     void Processor::loadInstruction(const Process &proc)

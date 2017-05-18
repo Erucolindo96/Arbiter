@@ -4,7 +4,7 @@
 namespace arbiter
 {
 
-
+//DAT
 
     DATInstruction::DATInstruction():Instruction()
     {}
@@ -22,9 +22,11 @@ namespace arbiter
     }
 
 
-    ExecutionLog DATInstruction::execute(CorePtr &core)
+    ExecutionLog DATInstruction::execute(CorePtr &core, const IntegerRegister &instruction_PC)
     {
-        throw std::runtime_error("TODO");
+        IntegerRegister next_pc = instruction_PC;
+        ++next_pc;
+        return ExecutionLog(next_pc, false, false);
     }
 
     Instruction::InsPtr DATInstruction::clone()const
@@ -33,5 +35,42 @@ namespace arbiter
     }
 
     DATInstruction::~DATInstruction()
+    {}
+
+//MOV
+
+    MOVInstruction::MOVInstruction():Instruction()
+    {}
+
+    MOVInstruction::MOVInstruction(const MOVInstruction &other):Instruction(other)
+    {}
+    MOVInstruction::MOVInstruction(const OperandPtr &operand_A, const OperandPtr &operand_B):Instruction(operand_A, operand_B)
+    {}
+
+    MOVInstruction& MOVInstruction::operator =(const MOVInstruction &other)
+    {
+        Instruction::operator =(other);
+        return *this;
+    }
+
+    ExecutionLog MOVInstruction::execute(CorePtr &core, const IntegerRegister &instruction_PC)
+    {
+        if(dynamic_cast<ImmidiateOperand*>(operand_A_.get()) )//jesli argumentA jest natychmiastowy
+        {//wstawiamy wartosc argumentu natychmiastowego do komorki spod adresu operandu B
+            IntegerRegister destination_address = operandB()->countArgument(core, instruction_PC);
+
+        }
+        else
+        {
+
+        }
+    }
+
+    Instruction::InsPtr MOVInstruction::clone()const
+    {
+        return Instruction::InsPtr(new MOVInstruction(*this) );
+    }
+
+    MOVInstruction::~MOVInstruction()
     {}
 }

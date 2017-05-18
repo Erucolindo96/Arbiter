@@ -15,17 +15,20 @@ namespace arbiter
         }
     }
 
-    Warrior::Warrior(const std::string &name, std::vector<InsPtr> &&code_of_warrior):instuctions_(std::move(code_of_warrior)), name_(name)
+/*    Warrior::Warrior(const std::string &name, std::vector<InsPtr> &&code_of_warrior):instuctions_(std::move(code_of_warrior)), name_(name)
     {
-/*        for(auto iter = code_of_warrior.begin(); iter != code_of_warrior.end();++iter)
+        for(auto iter = code_of_warrior.begin(); iter != code_of_warrior.end();++iter)
         {
             instuctions_.push_back( std::move(*iter) );//cholera wie jak to sie zachowa
         }
-*/
+        throw std::runtime_error("TODO");
    }
+*/
 
-    Warrior::Warrior(const Warrior &other):Warrior(other.name_, other.instuctions_)
-    {}
+    Warrior::Warrior(const Warrior &other): Warrior(other.name_, other.instuctions_)
+    {
+
+    }
 
     Warrior& Warrior::operator=(const Warrior &other)
     {
@@ -98,6 +101,10 @@ namespace arbiter
         {
             instuctions_.push_back( (*iter)->clone() );//kopiujemy instrukcje
         }
+    }
+    void Warrior::addInstruction(const InsPtr &added)
+    {
+        instuctions_.push_back(added->clone());
     }
 
 

@@ -24,6 +24,26 @@ namespace arbiter
        // other.operand_B_ = nullptr;
     }
 
+    IntegerRegister Instruction::getValueOperandA()const
+    {
+        return operand_A_->getValue();
+    }
+
+    IntegerRegister Instruction::getValueOperandB()const
+    {
+        return operand_B_->getValue();
+    }
+
+    OperandPtr& Instruction::getOperandARef()
+    {
+        return operand_A_;
+    }
+
+    OperandPtr& Instruction::getOperandBRef()
+    {
+        return operand_B_;
+    }
+
     OperandPtr Instruction::operandA() const
     {
         return operand_A_->clone();

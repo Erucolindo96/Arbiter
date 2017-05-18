@@ -50,7 +50,7 @@ public:
     IntegerRegister getValue()const;
     void setValue(const IntegerRegister value);
 
-    virtual IntegerRegister countArgument(CorePtr &core) = 0;
+    virtual IntegerRegister countArgument(CorePtr &core,const IntegerRegister &instruction_PC)const = 0 ;
     virtual OperandPtr clone()const = 0;
 
 

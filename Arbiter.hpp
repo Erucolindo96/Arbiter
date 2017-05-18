@@ -35,14 +35,25 @@ namespace arbiter
 class Arbiter
 {
 
-typedef std::unique_ptr<Core> CorePtr;
-//typedef std::shared_ptr<Warrior> WarriorPtr;
-//typedef std::shared_ptr<Parameters> ParametersPtr;
-
-typedef std::unique_ptr<CoreCreator> CoreCreatorPtr;
-typedef std::unique_ptr<Observer> ObserverPtr;
 
 public:
+
+
+    typedef std::unique_ptr<Core> CorePtr;
+    //typedef std::shared_ptr<Warrior> WarriorPtr;
+    //typedef std::shared_ptr<Parameters> ParametersPtr;
+
+    typedef std::unique_ptr<CoreCreator> CoreCreatorPtr;
+    typedef std::unique_ptr<Observer> ObserverPtr;
+
+
+    /**
+     * @brief Arbiter Tworzy Arbitra, posiadającego wskazanie na Obserwatora, oraz przejmującego CoreCreator
+     * CoreCreator zawieja już w sobie wojowników - nie trzeba ich dodatkowo tworzyć.
+     *
+     * @param obs_ptr Wskazanie na obserwatora, rejestrującego zmiany w rdzeniu.
+     * @param core_creator Obiekt tworzący rdzeń według zadanych przez uzytkownika parametrów.
+     */
     Arbiter(ObserverPtr &obs_ptr, CoreCreatorPtr core_creator);
 
     /**
@@ -80,17 +91,15 @@ private:
      * @brief createCore Tworzy rdzeń o podanych parametrach
      * @param core_creator Klasa tworząca rdzeń.
      */
-    void createCore( CoreCreatorPtr core_creator);
+    void createCore(const CoreCreatorPtr &core_creator);
 
 
     Arbiter() = delete;
 
-    //CoreCreatorPtr core_creator_;
-    QueueManager manager;//zarządza kolejkami procesów
-    std::vector<Warrior> warriors_;
+    Warrior warrior1_, warrior2_;
 
     CorePtr core_ptr_ ;
-
+    QueueManager manager;//zarządza kolejkami procesów
     Processor processor_;
 
     ObserverPtr &observer_ptr_;

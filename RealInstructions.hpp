@@ -25,7 +25,7 @@ namespace arbiter
 
         virtual DATInstruction& operator=(const DATInstruction& other);
 
-        virtual ExecutionLog execute(CorePtr &core);
+        virtual ExecutionLog execute(CorePtr &core, const IntegerRegister &instruction_PC);
         virtual InsPtr clone()const;
 
         virtual ~DATInstruction();
@@ -33,18 +33,15 @@ namespace arbiter
     };
     class MOVInstruction: public Instruction
     {
+    public:
         explicit MOVInstruction();
-        //to chyba tak nie dziala
-        //wszystkie dozwolone konstruktowy dla tej instrukcji - argument A moze byc dowolny, argument B nie moze byc natychmiastowy
-        //explicit MOVInstruction(const OperandPtr operand_A, const DirectOperandPtr operand_B);
-        //explicit MOVInstruction(const OperandPtr operand_A, const IndirectOperandPtr operand_B);
-        //explicit MOVInstruction(const OperandPtr operand_A, const DecrementOperandPtr operand_B);
-        //explicit MOVInstruction(const OperandPtr operand_A, const IncrementOperandPtr operand_B);
+        MOVInstruction(const MOVInstruction &other);
+        explicit MOVInstruction(const OperandPtr &operand_A, const OperandPtr &operand_B);
 
         MOVInstruction& operator=(const MOVInstruction& other);
 
-        virtual ExecutionLog execute(CorePtr core) ;
-        virtual std::unique_ptr<Instruction> clone()const;
+        virtual ExecutionLog execute(CorePtr &core, const IntegerRegister &instruction_PC) ;
+        virtual Instruction::InsPtr clone()const;
 
         virtual ~MOVInstruction();
 

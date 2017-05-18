@@ -16,35 +16,52 @@ namespace arbiter
 
 
         virtual Operand::OperandPtr clone()const;
-        virtual IntegerRegister countArgument(CorePtr &core);
+        virtual IntegerRegister countArgument(CorePtr &core, const IntegerRegister &instruction_PC)const;
     };
 
     class DirectOperand: public Operand
     {
     public:
-        OperandPtr clone();
-        IntegerRegister countArgument(CorePtr core);
+        DirectOperand(const DirectOperand &other);
+        explicit DirectOperand(const IntegerRegister &value);
+        DirectOperand(const DirectOperand &&other);
+
+        OperandPtr clone()const;
+        IntegerRegister countArgument(CorePtr &core, const IntegerRegister &instruction_PC)const;
     };
 
     class IndirectOperand: public Operand
     {
     public:
-        OperandPtr clone();
-        IntegerRegister countArgument(CorePtr core);
+        IndirectOperand(const IndirectOperand &other);
+        explicit IndirectOperand(const IntegerRegister &value);
+        IndirectOperand(const IndirectOperand &&other);
+
+
+        OperandPtr clone()const;
+        IntegerRegister countArgument(CorePtr &core, const IntegerRegister &instruction_PC)const;
     };
 
     class IndirectDecrementOperand: public Operand
     {
     public:
-        OperandPtr clone();
-        IntegerRegister countArgument(CorePtr core);
+        IndirectDecrementOperand(const IndirectDecrementOperand &other);
+        explicit IndirectDecrementOperand(const IntegerRegister &value);
+        IndirectDecrementOperand(const IndirectDecrementOperand &&other);
+
+        OperandPtr clone()const;
+        IntegerRegister countArgument(CorePtr &core,  const IntegerRegister &instruction_PC)const;
     };
 
     class IndirectIncrementOperand: public Operand
     {
     public:
-        OperandPtr clone();
-        IntegerRegister countArgument(CorePtr core);
+        IndirectIncrementOperand(const IndirectIncrementOperand &other);
+        explicit IndirectIncrementOperand(const IntegerRegister &value);
+        IndirectIncrementOperand(const IndirectIncrementOperand &&other);
+
+        OperandPtr clone()const;
+        IntegerRegister countArgument(CorePtr &core,  const IntegerRegister &instruction_PC)const;
     };
 
 }
