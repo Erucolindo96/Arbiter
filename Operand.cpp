@@ -41,6 +41,16 @@ namespace arbiter
     {
         value_ = value;
     }
+    void Operand::addValue(const IntegerRegister value)
+    {
+        value_ = value_ + value;
+    }
+
+    void Operand::subValue(const IntegerRegister value)
+    {
+        value_ = value_ - value;
+    }
+
 
 
 

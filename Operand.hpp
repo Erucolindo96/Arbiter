@@ -49,7 +49,17 @@ public:
 
     IntegerRegister getValue()const;
     void setValue(const IntegerRegister value);
+    void addValue(const IntegerRegister value);
+    void subValue(const IntegerRegister value);
 
+
+    /**
+     * @brief countArgument Oblica adres argumentu, na który wskazuje operand(zależnie od operandu sposób jego wyliczania jest inny).
+     * Jeśli operand jest natychmiastowy, to zwraca adres swojej komorki pamieci.
+     * @param core Referencja do rdzenia, w którym  rozgrywa się walka.
+     * @param instruction_PC Adres wykonywanej instrukcji
+     * @return Adres argumentu instrukcji
+     */
     virtual IntegerRegister countArgument(CorePtr &core,const IntegerRegister &instruction_PC)const = 0 ;
     virtual OperandPtr clone()const = 0;
 
