@@ -82,6 +82,11 @@ namespace arbiter
          */
 //        void setObserver(std::unique_ptr<Observer> &obs_ptr);
 
+        /**
+         * @brief notifyObserver Informuje obserwatora, że stan obiektu się zmienił
+         */
+        void notifyObserver(const IntegerRegister &modified_ins);
+
 
 
 
@@ -101,10 +106,6 @@ namespace arbiter
 
 
 
-        /**
-         * @brief notifyObserver Informuje obserwatora, że stan obiektu się zmienił
-         */
-        void notifyObserver();
 
     };
 

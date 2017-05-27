@@ -26,7 +26,8 @@ namespace arbiter
     {
         IntegerRegister next_pc = instruction_PC;
         ++next_pc;
-        return ExecutionLog(next_pc, false, false);
+        core->notifyObserver(instruction_PC);
+        return ExecutionLog(next_pc, next_pc, false, false);
     }
 
     Instruction::InsPtr DATInstruction::clone()const
@@ -69,9 +70,11 @@ namespace arbiter
             IntegerRegister destination_address = operand_B_->countArgument(core, instruction_PC);//szukamy komórki którą zmienimy
             core->modifyInstruction(destination_address, std::move(clone_source));//zapisujemy komorke pod znaleziony adres
         }
+        core->notifyObserver(instruction_PC);
+
         IntegerRegister next_pc = instruction_PC;
         ++next_pc;
-        return ExecutionLog(next_pc, true, false);
+        return ExecutionLog(next_pc,next_pc, true, false);
     }
 
     Instruction::InsPtr MOVInstruction::clone()const
@@ -120,9 +123,10 @@ namespace arbiter
             destination->getOperandARef()->addValue( source->getValueOperandA() );//dodajemy odpowiednie operandy zrodlowe do odpowiednich operandow docelowych
             destination->getOperandBRef()->addValue( source->getValueOperandB() );
         }
+        core->notifyObserver(instruction_PC);
         IntegerRegister next_pc = instruction_PC;
         ++next_pc;
-        return ExecutionLog(next_pc, true, false);
+        return ExecutionLog(next_pc,next_pc, true, false);
     }
 
     Instruction::InsPtr ADDInstruction::clone()const
@@ -171,9 +175,10 @@ namespace arbiter
             destination->getOperandARef()->subValue( source->getValueOperandA() );//odejmujemy odpowiednie operandy zrodlowe od odpowiednich operandow docelowych
             destination->getOperandBRef()->subValue( source->getValueOperandB() );
         }
+        core->notifyObserver(instruction_PC);
         IntegerRegister next_pc = instruction_PC;
         ++next_pc;
-        return ExecutionLog(next_pc, true, false);
+        return ExecutionLog(next_pc,next_pc, true, false);
     }
 
     Instruction::InsPtr SUBInstruction::clone()const
@@ -204,7 +209,8 @@ namespace arbiter
     ExecutionLog JMPInstruction::execute(CorePtr &core, const IntegerRegister &instruction_PC)
     {
         IntegerRegister next_pc = operand_A_->countArgument(core, instruction_PC);
-        return ExecutionLog(next_pc, true, false);
+        core->notifyObserver(instruction_PC);
+        return ExecutionLog(next_pc,next_pc, true, false);
     }
 
     Instruction::InsPtr JMPInstruction::clone()const
@@ -236,17 +242,11 @@ namespace arbiter
         IntegerRegister conditional_value(core->getCoreSize() );//wartość, która jeśli będzie wynosić zero to nastąpi skok
         const IntegerRegister ZERO(core->getCoreSize(), 0);
 
-        if(dynamic_cast<ImmidiateOperand*>(operand_B_.get() ) )
-        {
-            conditional_value = operand_B_->getValue();
-        }
-        else
-        {
             IntegerRegister arg_ptr = operand_B_->countArgument(core, instruction_PC);//wyliczmay adres
             Core::InsPtr &ins_arg = core->getInstructionRef(arg_ptr);
             conditional_value = ins_arg->getValueOperandB();//i pobieramy spod wyliczonego adresu
-        }
 
+        core->notifyObserver(instruction_PC);
         IntegerRegister next_pc = instruction_PC;
         ++next_pc;
         if(conditional_value == ZERO)//jeśli wyliczony argument B jest równy 0 - skaczemu pod adres z operandu A
@@ -254,7 +254,7 @@ namespace arbiter
             next_pc = operand_A_->countArgument(core, instruction_PC);
         }
 
-        return ExecutionLog(next_pc, true, false);
+        return ExecutionLog(next_pc,next_pc, true, false);
     }
 
     Instruction::InsPtr JMZInstruction::clone()const
@@ -287,17 +287,11 @@ namespace arbiter
         IntegerRegister conditional_value(core->getCoreSize() );//wartość, która jeśli będzie wynosić zero to nastąpi skok
         const IntegerRegister ZERO(core->getCoreSize(), 0);
 
-        if(dynamic_cast<ImmidiateOperand*>(operand_B_.get() ) )
-        {
-            conditional_value = operand_B_->getValue();
-        }
-        else
-        {
             IntegerRegister arg_ptr = operand_B_->countArgument(core, instruction_PC);//wyliczmay adres
             Core::InsPtr &ins_arg = core->getInstructionRef(arg_ptr);
             conditional_value = ins_arg->getValueOperandB();//i pobieramy spod wyliczonego adresu
-        }
 
+        core->notifyObserver(instruction_PC);
         IntegerRegister next_pc = instruction_PC;
         ++next_pc;
         if(conditional_value != ZERO)//jeśli wyliczony argument B jest różny od 0 - skaczemu pod adres z operandu A
@@ -305,7 +299,7 @@ namespace arbiter
             next_pc = operand_A_->countArgument(core, instruction_PC);
         }
 
-        return ExecutionLog(next_pc, true, false);
+        return ExecutionLog(next_pc,next_pc, true, false);
     }
 
     Instruction::InsPtr JMNInstruction::clone()const
@@ -339,19 +333,13 @@ namespace arbiter
         const IntegerRegister ZERO(core->getCoreSize(), 0 );
         const IntegerRegister ONE(core->getCoreSize(),  1 );
 
-        if(dynamic_cast<ImmidiateOperand*>(operand_B_.get() ) )
-        {
-            operand_B_->subValue(ONE);//dekrementujemy operand B
-            conditional_value = operand_B_->getValue();//czytamy warunek skoku
-        }
-        else
-        {
+
             IntegerRegister arg_ptr = operand_B_->countArgument(core, instruction_PC);//wyliczmay adres
             Core::InsPtr &ins_arg = core->getInstructionRef(arg_ptr);
             ins_arg->getOperandBRef()->subValue(ONE);//dekrementujemy operand B
             conditional_value = ins_arg->getValueOperandB();//i czytamy warunek skoku
-        }
 
+        core->notifyObserver(instruction_PC);
         IntegerRegister next_pc = instruction_PC;
         ++next_pc;
         if(conditional_value != ZERO)//jeśli wyliczony argument B jest różny od 0 - skaczemu pod adres z operandu A
@@ -359,7 +347,7 @@ namespace arbiter
             next_pc = operand_A_->countArgument(core, instruction_PC);
         }
 
-        return ExecutionLog(next_pc, true, false);
+        return ExecutionLog(next_pc,next_pc, true, false);
     }
 
     Instruction::InsPtr DJNInstruction::clone()const
@@ -371,7 +359,7 @@ namespace arbiter
     {}
 
     //CMP - compare, skip if equal
-
+/*
     CMPInstruction::CMPInstruction():Instruction()
     {}
 
@@ -419,6 +407,36 @@ namespace arbiter
     }
 
     CMPInstruction::~CMPInstruction()
+    {}
+*/
+
+//SPL
+    SPLInstruction::SPLInstruction():Instruction()
+    {}
+
+    SPLInstruction::SPLInstruction(const SPLInstruction &other):Instruction(other)
+    {}
+
+    SPLInstruction::SPLInstruction(const OperandPtr &operand_A, const OperandPtr &operand_B):Instruction(operand_A, operand_B)
+    {}
+
+    SPLInstruction& SPLInstruction::operator=(const DJNInstruction& other)
+    {
+        Instruction::operator =(other);
+        return *this;
+    }
+
+    ExecutionLog SPLInstruction::execute(CorePtr &core, const IntegerRegister &instruction_PC)
+    {
+
+    }
+
+    Instruction::InsPtr SPLInstruction::clone()const
+    {
+        return Instruction::InsPtr(new SPLInstruction(*this) );
+    }
+
+    SPLInstruction::~SPLInstruction()
     {}
 
 }

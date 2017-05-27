@@ -39,10 +39,9 @@ class Arbiter
 public:
 
 
-    typedef std::unique_ptr<Core> CorePtr;
-    //typedef std::shared_ptr<Warrior> WarriorPtr;
-    //typedef std::shared_ptr<Parameters> ParametersPtr;
 
+
+    typedef std::unique_ptr<Core> CorePtr;
     typedef std::unique_ptr<CoreCreator> CoreCreatorPtr;
     typedef std::unique_ptr<Observer> ObserverPtr;
 
@@ -52,23 +51,9 @@ public:
      * CoreCreator zawieja już w sobie wojowników - nie trzeba ich dodatkowo tworzyć.
      *
      * @param obs_ptr Wskazanie na obserwatora, rejestrującego zmiany w rdzeniu.
-     * @param core_creator Obiekt tworzący rdzeń według zadanych przez uzytkownika parametrów.
+     * @param core_creator Obiekt tworzący rdzeń według zadanych przez użytkownika parametrów.
      */
     Arbiter(ObserverPtr &obs_ptr, CoreCreatorPtr core_creator);
-
-    /**
-     * @brief addWarriors Dodaje wojowników, którzy maja rozegrać walkę
-     * @param warriors Wektor wojowników
-     */
-    void addWarriors(const std::vector<Warrior> &warriors);
-
-    /**
-     * @brief addCoreObserver Dodaje istniejącemu rdzeniowi wskazanie na obserwatora. Jesli rdzeń nie istnieje - rzuca wyjątek.
-     * @param observ_ptr Wskazanie na obserwatora, któremu rdzeń będzie raportował o zmianach.
-     * @throw
-     */
-//    void addCoreObserver(const ObserverPtr observ_ptr);
-
 
     /**
      * @brief executeNextInstruction Zleca wykonanie następnej instrukcji.
@@ -76,16 +61,11 @@ public:
      */
     bool executeNextInstruction();
 
-    std::unique_ptr<Warrior> getWinner(); //jezeli walka nierozstrzygnięta lub trwa zwraca nulla, w przeciwnym wypadku - zwyciezce
+    WINNER getWinner()const; //jezeli walka nierozstrzygnięta lub trwa zwraca nulla, w przeciwnym wypadku - zwyciezce
 
 
 
 private:
-    /**
-     * @brief createProcess Tworzy nowy proces. Nowy proces jest tworzony w kolejce aktualnego procesu
-     * @param actual_proc
-     */
-    void createProcess(Process actual_proc);
 
     /**
      * @brief createCore Tworzy rdzeń o podanych parametrach
@@ -97,14 +77,10 @@ private:
     Arbiter() = delete;
 
     Warrior warrior1_, warrior2_;
-
     CorePtr core_ptr_ ;
-    QueueManager manager;//zarządza kolejkami procesów
     Processor processor_;
-
+    QueueManager manager_;//zarządza kolejkami procesów
     ObserverPtr &observer_ptr_;
-
-
 
 };
 

@@ -33,10 +33,22 @@ namespace arbiter
     public:
         CoreCreator(const unsigned int CORE_TO_CREATE_SIZE, const Warrior &warrior_1, const Warrior &warrior_2 );
 
+        unsigned int getCoreSize()const;
 
         // std::vector<Warrior> getWarriorsCopy()const;
         const Warrior& getWarrior1Ref()const;
         const Warrior& getWarrior2Ref()const;
+
+        /**
+         * @brief getPositionWarriorFirst Zwraca adres pierszej instrukcji wojownika 1
+         * @return Adres pierwszej instrukcji wojownika 1
+         */
+        IntegerRegister getPositionWarriorFirst()const;
+        /**
+         * @brief getPositionWarriorSecond Zwraca adres pierszej instrukcji wojownika 2
+         * @return Adres pierwszej instrukcji wojownika 2
+         */
+        IntegerRegister getPositionWarriorSecond()const;
 
         /**
          * @brief createCore() Tworzy rdzeń w postaci wektora Instrukcji

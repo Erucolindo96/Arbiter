@@ -12,11 +12,18 @@ namespace arbiter
      */
     struct ExecutionLog
     {
-        IntegerRegister next_pc_;
+        /**
+         * @brief next_pc_current_proc_ next_pc procesu który wykonał instrukcję
+         */
+        IntegerRegister next_pc_current_proc_;//next_pc procesu który wykonał instrukcję, oraz next_pc procesu który został utworzony w instrukcji SPL
+        /**
+         * @brief next_pc_new_proc_ Next_pc nowo utworzonego procesu. Jeśli nie powstał - zawiera dowolną wartość.
+         */
+        IntegerRegister  next_pc_new_proc_;
         bool is_proc_live_;
         bool is_proc_split_;
 
-        ExecutionLog(const IntegerRegister &next_pc, const bool is_proc_live , const bool is_proc_split );
+        ExecutionLog(const IntegerRegister &next_pc,const IntegerRegister &next_pc_new_proc, const bool is_proc_live , const bool is_proc_split );
         ExecutionLog(const ExecutionLog& other);
 
 

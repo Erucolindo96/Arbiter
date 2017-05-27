@@ -24,7 +24,7 @@ using namespace std;
 class MokeObserver: public Observer
 {
 public:
-    virtual void update()
+    virtual void update(const IntegerRegister &modified_ins_address)
     {
         cout<<"Aktualizacja Obserwatora\n";
     }
@@ -37,9 +37,6 @@ unique_ptr<Observer> observer_ptr;
 unique_ptr<Observer> mok;
 
 const unsigned int CORE_SIZE = 100;
-
-
-
 
 
 void generateWarriors()//pierwszy wojownik - 2 instrukcje mov, drugi - mov, dat, mov

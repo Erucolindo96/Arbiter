@@ -6,6 +6,10 @@ namespace arbiter
     CoreCreator::CoreCreator(const unsigned int CORE_TO_CREATE_SIZE, const Warrior &warrior_1, const Warrior &warrior_2 ): warrior_1_(warrior_1), warrior_2_(warrior_2), CORE_TO_CREATE_SIZE_(CORE_TO_CREATE_SIZE)
     {}
 
+    unsigned int CoreCreator::getCoreSize()const
+    {
+        return CORE_TO_CREATE_SIZE_;
+    }
 
     const Warrior& CoreCreator::getWarrior1Ref()const
     {
@@ -17,6 +21,14 @@ namespace arbiter
         return warrior_2_;
     }
 
+    IntegerRegister CoreCreator::getPositionWarriorFirst()const
+    {
+        return countPositionWarrior1();
+    }
+    IntegerRegister CoreCreator::getPositionWarriorSecond()const
+    {
+        return countPositionWarrior2();
+    }
 
     bool CoreCreator::isEnoughPlaceForWarriors()const
     {

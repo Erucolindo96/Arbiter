@@ -20,7 +20,7 @@ namespace arbiter
 
     IntegerRegister ImmidiateOperand::countArgument(CorePtr &core,const IntegerRegister &instruction_PC)const
     {
-        return value_;//bo jest natychmiastowy
+        return instruction_PC;//jest natychmiastowy, wiec zwraca adres swojej instrukcji
     }
 
     //direct

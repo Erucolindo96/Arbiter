@@ -143,7 +143,7 @@ namespace arbiter
         virtual ~DJNInstruction();
 
     };
-
+/*
     class CMPInstruction: public Instruction
     {
     public:
@@ -157,6 +157,23 @@ namespace arbiter
         virtual Instruction::InsPtr clone()const;
 
         virtual ~CMPInstruction();
+
+    };
+*/
+
+    class SPLInstruction: public Instruction
+    {
+    public:
+        explicit SPLInstruction();
+        SPLInstruction(const SPLInstruction &other);
+        explicit SPLInstruction(const OperandPtr &operand_A, const OperandPtr &operand_B);
+
+        SPLInstruction& operator=(const DJNInstruction& other);
+
+        virtual ExecutionLog execute(CorePtr &core, const IntegerRegister &instruction_PC) ;
+        virtual Instruction::InsPtr clone()const;
+
+        virtual ~SPLInstruction();
 
     };
 

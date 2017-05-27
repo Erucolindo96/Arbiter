@@ -16,7 +16,7 @@ namespace arbiter
         typedef std::unique_ptr<Instruction> InsPtr;
     public:
 
-        Processor(CorePtr &core);
+        Processor(CorePtr &core, const unsigned int CORE_SIZE);
 
         CorePtr& getCorePtr()const;
 
